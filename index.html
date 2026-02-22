@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mxtherfxcker // dev</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0c0b0c;
+            font-family: 'Roboto', sans-serif;
+            color: #ddd;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(2px);
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px #ffcc00 inset;
+            padding: 2rem 2.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1;
+            color: #ffcc00;
+            text-shadow: 2px 2px 0 #7f5f00, 4px 4px 0 rgba(0,0,0,0.7);
+            margin-bottom: 0.2rem;
+        }
+
+        .subhead {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: #aaa;
+            border-left: 4px solid #ffcc00;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #ffcc00;
+            border-bottom: 3px double #ffcc00;
+            padding-bottom: 0.3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+
+        h2 i {
+            color: #ddd;
+            margin-right: 0.7rem;
+            font-size: 1.8rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo-wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .logo-main {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffcc00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: #1a1a1a;
+            padding: 0.2rem 0.8rem;
+            border: 2px solid #ffcc00;
+            transform: skewX(-5deg);
+            display: inline-block;
+        }
+
+        .logo-underline {
+            width: 100%;
+            height: 4px;
+            margin-top: 6px;
+            background: repeating-linear-gradient(90deg, #ffcc00 0px, #ffcc00 4px, transparent 4px, transparent 8px);
+        }
+
+        .nav-links a {
+            color: #ddd;
+            font-size: 1.5rem;
+            margin-left: 1.2rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #ffcc00;
+        }
+
+        .hero {
+            margin: 2rem 0 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1.8rem;
+            border: 1px solid #3a3a3a;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            border: 4px solid #ffcc00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #ffcc00;
+            text-shadow: 2px 2px 0 #7f5f00;
+            box-shadow: 0 0 0 2px black, 0 0 0 5px #333;
+            line-height: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.5);
+            padding: 1rem 1.5rem;
+            border-left: 6px solid #ffcc00;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .info-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 1.2rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.4rem;
+            color: #ffcc00;
+            margin-bottom: 1rem;
+            border-left: 3px solid #ffcc00;
+            padding-left: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-list i {
+            width: 1.4rem;
+            color: #ffcc00;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #1e1e1e;
+            border: 1px solid #ffcc00;
+            border-radius: 30px;
+            padding: 0.2rem 1rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            color: #ffcc00;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 1.5rem; }
+            h1 { font-size: 2.5rem; }
+            .hero { flex-direction: column; text-align: center; }
+            .hero-avatar { margin: 0 auto; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo-wrapper">
+                <span class="logo-main">MXTHERFXCKER</span>
+                <div class="logo-underline"></div>
+            </div>
+            <div class="nav-links">
+                <a href="https://github.com/mxtherfxcker" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://discordapp.com/users/1039474695222865950" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-avatar">M</div>
+            <div class="hero-text">
+                <h1>mxtherfxcker</h1>
+                <div class="subhead">16 · Москва · reverse</div>
+                <p>
+                    С 2023 года занимаюсь реверс-инжинирингом, модификацией игр и низкоуровневым программированием.
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <span class="badge"><i class="fas fa-map-pin"></i> Moscow</span>
+            <span class="badge"><i class="fas fa-microchip"></i> low-level</span>
+            <span class="badge"><i class="fas fa-compact-disc"></i> analog horror</span>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><i class="fas fa-gamepad"></i> игры</h3>
+                <ul class="info-list">
+                    <li><i class="fas fa-car"></i> GTA, Bully</li>
+                    <li><i class="fas fa-crosshairs"></i> CS, Tarkov</li>
+                    <li><i class="fas fa-crow"></i> Half-Life 2</li>
+                    <li><i class="fas fa-toilet"></i> Postal 2</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-film"></i> кино</h3>
+                <ul class="info-list">
+                    <li><i class="fas fa-ghost"></i> analog horror</li>
+                    <li><i class="fas fa-laugh"></i> comedy</li>
+                    <li><i class="fas fa-headphones"></i> lofi ambience</li>
+                    <li><i class="fas fa-video"></i> found footage</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-book"></i> книги</h3>
+                <ul class="info-list">
+                    <li><i class="fas fa-dragon"></i> фэнтези</li>
+                    <li><i class="fas fa-microchip"></i> reverse / low-level</li>
+                    <li><i class="fas fa-skull"></i> хоррор</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>© mxtherfxcker · 2025</div>
+            <div>#lowlevel</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            document.querySelector('.footer div:first-child').innerHTML = '© mxtherfxcker · ' + new Date().getFullYear();
+
+            const canvas = document.getElementById('particles-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+
+            function initParticles() {
+                particles = [];
+                for (let i = 0; i < 200; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.1,
+                        vy: (Math.random() - 0.5) * 0.08,
+                        radius: Math.random() * 3 + 0.8,
+                        color: `rgba(255, 204, 0, ${Math.random() * 0.35 + 0.1})`
+                    });
+                }
+            }
+
+            function resizeCanvas() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+                initParticles();
+            }
+
+            function drawParticles() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                });
+            }
+
+            function updateParticles() {
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+                });
+            }
+
+            function animate() {
+                updateParticles();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animate();
+
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('copy', e => e.preventDefault());
+            document.addEventListener('cut', e => e.preventDefault());
+            document.addEventListener('paste', e => e.preventDefault());
+            document.addEventListener('keydown', e => {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a')) {
+                    e.preventDefault();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

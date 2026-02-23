@@ -49,6 +49,14 @@
             pointer-events: none;
         }
 
+        :root {
+            --container-padding: 2.5rem;
+            --title-size: 3.5rem;
+            --card-gap: 1.5rem;
+            --hero-padding: 1.8rem;
+            --base-font-size: 1rem;
+        }
+
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -57,7 +65,7 @@
             border: 1px solid #3a3a3a;
             border-radius: 8px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 0 1px #ffcc00 inset;
-            padding: 2rem 2.5rem;
+            padding: var(--container-padding);
             position: relative;
             z-index: 10;
         }
@@ -70,7 +78,7 @@
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: var(--title-size);
             line-height: 1;
             color: #ffcc00;
             text-shadow: 2px 2px 0 #7f5f00, 4px 4px 0 rgba(0,0,0,0.7);
@@ -158,7 +166,7 @@
             gap: 2.5rem;
             background: rgba(0,0,0,0.3);
             border-radius: 12px;
-            padding: 1.8rem;
+            padding: var(--hero-padding);
             border: 1px solid #3a3a3a;
         }
 
@@ -195,7 +203,7 @@
         .info-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            gap: var(--card-gap);
             margin: 2.5rem 0;
         }
 
@@ -259,7 +267,6 @@
 
         @media (max-width: 700px) {
             .container { padding: 1.5rem; }
-            h1 { font-size: 2.5rem; }
             .hero { flex-direction: column; text-align: center; }
             .hero-avatar { margin: 0 auto; }
             .info-grid { grid-template-columns: 1fr; }
@@ -335,6 +342,55 @@
     <script>
         (function() {
             document.querySelector('.footer div:first-child').innerHTML = '© mxtherfxcker · ' + new Date().getFullYear();
+
+            function updateScale() {
+                const width = window.innerWidth;
+                const root = document.documentElement;
+
+                let containerPadding = '2.5rem';
+                let titleSize = '3.5rem';
+                let cardGap = '1.5rem';
+                let heroPadding = '1.8rem';
+                let baseFontSize = '1rem';
+
+                if (width < 480) {
+                    containerPadding = '1rem';
+                    titleSize = '2.2rem';
+                    cardGap = '1rem';
+                    heroPadding = '1rem';
+                    baseFontSize = '0.9rem';
+                } else if (width < 700) {
+                    containerPadding = '1.5rem';
+                    titleSize = '2.8rem';
+                    cardGap = '1.2rem';
+                    heroPadding = '1.4rem';
+                    baseFontSize = '0.95rem';
+                } else if (width < 1024) {
+                    containerPadding = '2rem';
+                    titleSize = '3.2rem';
+                    cardGap = '1.5rem';
+                    heroPadding = '1.6rem';
+                    baseFontSize = '1rem';
+                } else {
+                    containerPadding = '2.5rem';
+                    titleSize = '3.8rem';
+                    cardGap = '1.8rem';
+                    heroPadding = '2rem';
+                    baseFontSize = '1.1rem';
+                }
+
+                root.style.setProperty('--container-padding', containerPadding);
+                root.style.setProperty('--title-size', titleSize);
+                root.style.setProperty('--card-gap', cardGap);
+                root.style.setProperty('--hero-padding', heroPadding);
+                root.style.setProperty('--base-font-size', baseFontSize);
+            }
+
+            window.addEventListener('resize', () => {
+                clearTimeout(window.resizedFinished);
+                window.resizedFinished = setTimeout(updateScale, 100);
+            });
+            updateScale();
 
             const canvas = document.getElementById('particles-canvas');
             const ctx = canvas.getContext('2d');

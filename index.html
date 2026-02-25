@@ -466,7 +466,7 @@
             document.addEventListener('cut', e => e.preventDefault());
             document.addEventListener('paste', e => e.preventDefault());
             document.addEventListener('keydown', e => {
-                if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a')) {
+                if ((e.ctrlKey || e.altKey) && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a')) {
                     e.preventDefault();
                 }
             });

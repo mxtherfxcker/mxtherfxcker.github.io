@@ -401,10 +401,10 @@
                 particles = [];
                 for (let i = 0; i < 200; i++) {
                     particles.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        vx: (Math.random() - 0.5) * 0.1,
-                        vy: (Math.random() - 0.5) * 0.08,
+                        nx: Math.random(),
+                        ny: Math.random(),
+                        vx: (Math.random() - 0.5) * 0.0006,
+                        vy: (Math.random() - 0.5) * 0.0006,
                         radius: Math.random() * 3 + 0.8,
                         color: `rgba(255, 204, 0, ${Math.random() * 0.35 + 0.1})`
                     });
@@ -416,14 +416,16 @@
                 height = window.innerHeight;
                 canvas.width = width;
                 canvas.height = height;
-                initParticles();
+                if (particles.length === 0) initParticles();
             }
 
             function drawParticles() {
                 ctx.clearRect(0, 0, width, height);
                 particles.forEach(p => {
+                    const x = p.nx * width;
+                    const y = p.ny * height;
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.arc(x, y, p.radius, 0, Math.PI * 2);
                     ctx.fillStyle = p.color;
                     ctx.fill();
                 });
@@ -431,12 +433,12 @@
 
             function updateParticles() {
                 particles.forEach(p => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    if (p.x < 0) p.x = width;
-                    if (p.x > width) p.x = 0;
-                    if (p.y < 0) p.y = height;
-                    if (p.y > height) p.y = 0;
+                    p.nx += p.vx;
+                    p.ny += p.vy;
+                    if (p.nx < 0) p.nx = 1;
+                    if (p.nx > 1) p.nx = 0;
+                    if (p.ny < 0) p.ny = 1;
+                    if (p.ny > 1) p.ny = 0;
                 });
             }
 

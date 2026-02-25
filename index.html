@@ -466,7 +466,20 @@
             document.addEventListener('cut', e => e.preventDefault());
             document.addEventListener('paste', e => e.preventDefault());
             document.addEventListener('keydown', e => {
-                if ((e.ctrlKey || e.altKey) && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a')) {
+                if ((e.ctrlKey) && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a')) {
+                    e.preventDefault();
+                }
+
+                if (e.altKey && !e.key.startsWith('F')) {
+                    e.preventDefault();
+                }
+                if (e.shiftKey) {
+                    e.preventDefault();
+                }
+            });
+
+            document.addEventListener('mousedown', e => {
+                if (e.shiftKey || e.altKey || e.ctrlKey) {
                     e.preventDefault();
                 }
             });

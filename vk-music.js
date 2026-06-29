@@ -1,4 +1,4 @@
-const API_URL = 'https://mxtherfxcker-github-chl6y3eme-mxtherfxcker.vercel.app';
+const API_URL = 'https://mxtherfxcker-github-io.vercel.app/';
 
 const UPDATE_INTERVAL = 30000;
 

@@ -1,4 +1,4 @@
-const API_URL = 'https://mxtherfxcker-github-io.vercel.app/';
+const API_URL = 'https://mxtherfxcker-github-io.vercel.app/api/vk-music';
 
 const UPDATE_INTERVAL = 30000;
 
